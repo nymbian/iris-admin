@@ -19,7 +19,7 @@ TimeFormat = "2006-01-02 15:04:05"
 
 [server]
 domain = "0.0.0.0"
-port   = "10082"
+port   = "8080"
 
 [pagination]
 PageSize = 10
