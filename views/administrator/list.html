@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title"><a href="/administrator/add/admin"><button type="button" class="btn btn-block btn-default">新增管理员</button></a></h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tbody><tr>
+                        <th style="width: 10px">#</th>
+                        <th>帐号</th>
+                        <th>昵称</th>
+                        <th>邮箱</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th></th>
+                    </tr>
+                    {{range $i, $v := .list}}
+                    <tr>
+                        <td>{{$v.ID}}</td>
+                        <td>{{$v.Account}}</td>
+                        <td>{{$v.Nickname}}</td>
+                        <td>{{$v.Email}}</td>
+                        <td>{{$v.CreatedAt | TimeToDate}}</td>
+                        <td>{{$v.UpdatedAt | TimeToDate}}</td>
+                        <td>
+                            <a href="/administrator/update/admin/{{$v.ID}}"><span class="label label-primary">编辑</span></a>
+                            <a href="/administrator/update/password/{{$v.ID}}"><span class="label label label label-success">密码</span></a>
+                            <a onclick="javascript:return confirm('确认删除?')" href="/administrator/del/admin/{{$v.ID}}"><span class="label label label-danger">删除</span></a>
+                        </td>
+                    </tr>
+                    {{end}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            {{.PageHtml | strToHtml}}
+        </div>
+    </div>
+</div>

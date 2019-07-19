@@ -1,0 +1,108 @@
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">修改内容</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" role="form" method="post" action="/news/update/news" enctype="multipart/form-data">
+                <input type="hidden" value="{{.UpdateNewsInfo.Model.ID}}" name="ID">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="Title" class="col-sm-2 control-label">标题</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="Title" placeholder="标题" value="{{.UpdateNewsInfo.Title}}" name="Title" required="required" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Category_id" class="col-sm-2 control-label">分类</label>
+                        <div class="col-sm-10">
+                            <select multiple class="form-control" id="Category_id" name="Category_id" required="required" >
+                                {{$CategoryIds := .CategoryIds}}
+                                {{range $i, $v := .list}}
+                                    <option value="{{$v.ID}}"
+                                        {{range $key,$val := $CategoryIds}}
+                                        {{if eq $v.ID $val}}
+                                            selected
+                                        {{end}}
+                                        {{end}}
+                                    >{{$v.Name}}</option>
+                                {{end}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Descript" class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-10">
+                            <textarea name="Descript" id="Descript" class="form-control" rows="3" placeholder="描述">{{.UpdateNewsInfo.Descript}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Content" class="col-sm-2 control-label">内容</label>
+                        <div class="col-sm-10">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">CK Editor
+                                        <small></small>
+                                    </h3>
+                                    <div class="pull-right box-tools">
+                                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                                <div class="box-body pad">
+                                        <textarea id="Content" name="Content" rows="10" cols="80">{{.UpdateNewsInfo.Content}}</textarea>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Sort" class="col-sm-2 control-label">排序</label>
+
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="Sort" placeholder="排序" name="Sort"  required="required" value="{{.UpdateNewsInfo.Sort}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputHeadIco" class="col-sm-2 control-label">&nbsp;</label>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.box -->
+
+
+    </div>
+</div>
+<script src="/static/adminlte/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- CK Editor -->
+<script src="/static/ckeditor5-build-classic/ckeditor.js"></script>
+<script src="/static/ckeditor5-build-classic/translations/zh-cn.js"></script>
+<!-- Bootstrap WYSIHTML5 -->
+<script src="/static/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<script>
+    $(function () {
+		ClassicEditor
+			.create( document.querySelector( '#Content' ) , {
+				// The language code is defined in the https://en.wikipedia.org/wiki/ISO_639-1 standard.
+				language: 'zh-cn'
+			})
+			.catch( error => {
+				console.error( error );
+			} );
+    })
+</script>

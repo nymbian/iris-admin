@@ -1,0 +1,25 @@
+[site]
+DefaultTitle  = "我的站点"
+DefaultLayout = "layout/main.html"
+DefaultError  = "layout/error.html"
+
+SessionCoolieName = "my_cms_hello_wold"
+SessionExpires    = 1 # session保持时间 /小时
+
+#调试开关
+APPDebug     = true #IRIS框架调试模式
+DblogerModel = true #Gorm调试模式
+
+AdminId = 1 #系统管理 不允许删除
+
+UploadSize         = 5               #允许上传文件的大小 单位M
+UploadSuffixExists = ".jpg,.png,.jpge,.gif" #允许上传文件的后缀
+
+TimeFormat = "2006-01-02 15:04:05"
+
+[server]
+domain = "0.0.0.0"
+port   = "10082"
+
+[pagination]
+PageSize = 10
