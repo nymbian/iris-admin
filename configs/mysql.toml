@@ -3,7 +3,7 @@ host = "120.25.202.18"
 port = "3306"
 database = "iris-admin"
 user = "root"
-password = "!Kuaiex*&^%$#@mysql"
+password = "mysql"
 charset = "utf8"
 sql_log = true
 
