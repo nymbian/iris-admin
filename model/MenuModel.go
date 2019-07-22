@@ -14,7 +14,10 @@ type Menu struct {
 	gorm.Model
 	Name     string `gorm:"not null;VARCHAR(100);"validate:"required"`
 	ParentId int    `gorm:"default:'0';not null;"validate:"number,min=0"`
+	Url     string `gorm:"not null;VARCHAR(255);"validate:"required"`
+	Team     string `gorm:"not null;VARCHAR(32)"`
 	Sort     int    `gorm:"default:'0';not null;"validate:"number,min=0"`
+	Status     int    `gorm:"default:'1';not null;"validate:"number,min=0"`
 	Level    int    `gorm:"-"`
 }
 
@@ -34,7 +37,7 @@ func (this *Menu) MenuInfo(id uint) (Menu, error) {
 	db := libs.DB
 
 	if db.Where("id = ?", id).First(&menu).RecordNotFound() {
-		return Menu{}, errors.New("分类未找到")
+		return Menu{}, errors.New("未找到")
 	}
 	return menu, nil
 }
@@ -44,7 +47,7 @@ func (this *Menu) MenuMoreInfo(ids string) ([]Menu, error) {
 	db := libs.DB
 
 	if db.Where("id in (?)", strings.Split(ids, ",")).Find(&data).RecordNotFound() {
-		return []Menu{}, errors.New("分类未找到")
+		return []Menu{}, errors.New("未找到")
 	}
 	return data, nil
 }
@@ -83,7 +86,7 @@ func (this *Menu) MenuUpdate(postValues map[string][]string) error {
 		return errors.New("该名称已经存在")
 	}
 	if db.Where("id = ? ", menu.ID).Find(&Menu{}).RecordNotFound() {
-		return errors.New("未查询到分类id")
+		return errors.New("未查询到id")
 	}
 	if err := db.Save(&menu).Error; err != nil {
 		return err
@@ -96,7 +99,7 @@ func (this *Menu) MenuDel(id uint) error {
 	db := libs.DB
 
 	if !db.Where("parent_id = ?", id).Find(&menu).RecordNotFound() {
-		return errors.New("该分类下存在子级分类，请先删除子级分类")
+		return errors.New("该分类下存在子级，请先删除子级")
 	}
 	if err := db.Where("id = ?", id).Delete(&menu).Error; err != nil {
 		return err

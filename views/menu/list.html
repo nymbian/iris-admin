@@ -10,7 +10,10 @@
                     <tbody><tr>
                         <th style="width: 10px">#</th>
                         <th>分类名称</th>
+                        <th>链接</th>
+                        <th>分组</th>
                         <th>排序</th>
+                        <th>状态</th>
                         <th>创建时间</th>
                         <th>修改时间</th>
                         <th></th>
@@ -19,7 +22,10 @@
                     <tr>
                         <td>{{$v.ID}}</td>
                         <td>{{$v.Name}}</td>
+                        <td><a href="{{$v.Url}}" target="_blank">{{$v.Url}}</a></td>
+                        <td>{{$v.Team}}</td>
                         <td>{{$v.Sort}}</td>
+                        <td>{{if eq 1 $v.Status}}正常{{else}}隐藏{{end}}</td>
                         <td>{{$v.CreatedAt | TimeToDate}}</td>
                         <td>{{$v.UpdatedAt | TimeToDate}}</td>
                         <td>
