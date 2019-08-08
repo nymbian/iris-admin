@@ -11,6 +11,7 @@ import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
 	"github.com/kataras/iris/sessions"
+	"log"
 )
 
 type LoginController struct {
@@ -20,19 +21,28 @@ type LoginController struct {
 }
 
 func (c *LoginController) Get() {
+	url := c.Ctx.URLParam("url")
+	//log.Println(url)
+	jumpUrl := "/system/main"
+	if url!=""{
+		jumpUrl = url
+	}
+	log.Println(jumpUrl)
+
 	if auth := commons.SessManager.Start(c.Ctx).Get("admin_user"); auth != nil {
-		c.Ctx.Redirect("/system/main")
+		c.Ctx.Redirect(jumpUrl)
 	} else {
-		c.Ctx.Redirect("/login/show")
+		c.Ctx.Redirect("/login/show?url="+url)
 	}
 }
 
 func (c *LoginController) GetShow() mvc.View {
 	err := c.Ctx.URLParam("err")
+	url := c.Ctx.URLParam("url")
 	return mvc.View{
 		Name:   "login/login.html",
 		Layout: "layout/none.html",
-		Data:   iris.Map{"Title": "后台登陆", "err": err},
+		Data:   iris.Map{"Title": "后台登陆", "err": err,"url":url},
 	}
 }
 
@@ -45,7 +55,14 @@ func (c *LoginController) Post() {
 		sessionInfo["id"] = adminInfo.ID
 		sessionInfo["name"] = adminInfo.Account
 		c.Session.Set("admin_user", sessionInfo)
-		c.Ctx.Redirect("/system/main")
+		url := c.Ctx.URLParam("url")
+		log.Println(url)
+		jumpUrl := "/system/main"
+		if url!=""{
+			jumpUrl = url
+		}
+		log.Println(jumpUrl)
+		c.Ctx.Redirect(jumpUrl)
 	} else {
 		c.Ctx.Redirect("/login/show?err=" + err.Error())
 		//登录失败

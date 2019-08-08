@@ -34,7 +34,7 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <form action="/login" method="POST">
+        <form action="/login?url={{.url}}" method="POST">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="account" required="required" name="account">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
