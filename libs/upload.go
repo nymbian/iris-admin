@@ -2,7 +2,7 @@ package libs
 
 import (
 	"io"
-	"iris-admin/common"
+	"github.com/nymbian/iris-admin/common"
 	"log"
 
 	"os"
@@ -31,7 +31,7 @@ func UploadFile(key string, Ctx iris.Context) (bool, string) {
 			log.Printf("%d UploadSize ToMax", info.Size)
 			return false, "Error while uploading: UploadSize ToMax"
 		}
-		fname := strconv.Itoa(commons.GenerateRangeNum(100, 9999)) + "_" + info.Filename
+		fname := strconv.Itoa(common.GenerateRangeNum(100, 9999)) + "_" + info.Filename
 
 		fileSuffix := path.Ext(fname)
 

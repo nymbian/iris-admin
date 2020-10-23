@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
-	"iris-admin/libs"
+	"github.com/nymbian/iris-admin/libs"
 	"math"
 	"sync"
 

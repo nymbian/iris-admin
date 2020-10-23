@@ -2,10 +2,10 @@ package main
 
 import (
 	"io"
-	"iris-admin/common"
-	"iris-admin/libs"
-	"iris-admin/model"
-	"iris-admin/route"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/libs"
+	"github.com/nymbian/iris-admin/model"
+	"github.com/nymbian/iris-admin/route"
 	"log"
 	"os"
 	"strconv"
@@ -72,7 +72,7 @@ func main() {
 
 	app.RegisterView(tmpl)
 	app.Favicon("./favicon.ico")
-	app.Use(iris.Gzip)
+	//app.Use(iris.Gzip)
 
 	//（可选）添加两个内置处理程序
 	//可以从任何与http相关的panics中恢复
@@ -80,12 +80,12 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
-	app.StaticWeb("/static", "./static")   //设置静态文件目录
-	app.StaticWeb("/uploads", "./uploads") //设置静态文件目录
+	app.HandleDir("/static", "./static")   //设置静态文件目录
+	app.HandleDir("/uploads", "./uploads") //设置静态文件目录
 
 	//设置公共页面输出
 	app.Use(func(ctx iris.Context) {
-		if auth := commons.SessManager.Start(ctx).Get("admin_user"); auth != nil {
+		if auth := common.SessManager.Start(ctx).Get("admin_user"); auth != nil {
 			admin_user, _ := auth.(map[string]interface{})
 			var admin_model model.Admin
 			admin_id, _ := admin_user["id"].(uint)

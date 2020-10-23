@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"html"
-	"iris-admin/common"
-	"iris-admin/libs"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/libs"
+	"github.com/nymbian/iris-admin/model"
 	"runtime"
 	"strings"
 
@@ -50,7 +50,7 @@ func (c *SystemController) PostUpdatePassword() {
 	if err := admin_model.AdminPasswodUpdate(admin_id, password, Repassword); err == nil {
 		c.Ctx.Redirect("/system/main")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -68,12 +68,12 @@ func (c *SystemController) PostUpdateAdmin() {
 	admin_id, _ := admin_user["id"].(uint)
 	err, filePath := libs.UploadFile("avatar", c.Ctx)
 	if err == false {
-		commons.DefaultErrorShow(filePath, c.Ctx)
+		common.DefaultErrorShow(filePath, c.Ctx)
 		return
 	}
 	if err := admin_model.AdminUpdate(c.Ctx.FormValues(), admin_id, filePath); err == nil {
 		c.Ctx.Redirect("/system/update/admin")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }

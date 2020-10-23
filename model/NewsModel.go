@@ -1,7 +1,7 @@
 package model
 
 import (
-	"iris-admin/libs"
+	"github.com/nymbian/iris-admin/libs"
 	"errors"
 	"github.com/jinzhu/gorm"
 	config "github.com/spf13/viper"

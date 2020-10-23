@@ -2,7 +2,7 @@ package model
 
 import (
 	"errors"
-	"iris-admin/libs"
+	"github.com/nymbian/iris-admin/libs"
 	"strings"
 
 	"github.com/jinzhu/gorm"

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	commons "iris-admin/common"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/model"
 
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
@@ -48,14 +48,14 @@ func (c *MenuController) PostAddMenu() {
 	if err := MenuModel.MenuAdd(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/menu")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
 func (c *MenuController) GetUpdateMenuBy(id uint) mvc.View {
 	MenuInfo, err := MenuModel.MenuInfo(id)
 	if err != nil {
-		return commons.MvcError(err.Error(), c.Ctx)
+		return common.MvcError(err.Error(), c.Ctx)
 	}
 	Menu := model.Menu{}
 	list := Menu.List()
@@ -76,7 +76,7 @@ func (c *MenuController) PostUpdateMenu() {
 	if err := MenuModel.MenuUpdate(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/menu")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -84,6 +84,6 @@ func (c *MenuController) GetDelMenuBy(id uint) {
 	if err := MenuModel.MenuDel(id); err == nil {
 		c.Ctx.Redirect("/menu")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }

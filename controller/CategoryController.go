@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"iris-admin/common"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/model"
 
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
@@ -48,14 +48,14 @@ func (c *CategoryController) PostAddCategory() {
 	if err := CategoryModel.CategoryAdd(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/category")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
 func (c *CategoryController) GetUpdateCategoryBy(id uint) mvc.View {
 	categoryInfo, err := CategoryModel.CategoryInfo(id)
 	if err != nil {
-		return commons.MvcError(err.Error(), c.Ctx)
+		return common.MvcError(err.Error(), c.Ctx)
 	}
 	Category := model.Category{}
 	list := Category.List()
@@ -76,7 +76,7 @@ func (c *CategoryController) PostUpdateCategory() {
 	if err := CategoryModel.CategoryUpdate(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/category")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -84,6 +84,6 @@ func (c *CategoryController) GetDelCategoryBy(id uint) {
 	if err := CategoryModel.CategoryDel(id); err == nil {
 		c.Ctx.Redirect("/category")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }

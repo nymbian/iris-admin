@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"iris-admin/common"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/model"
 	"strconv"
 	"strings"
 
@@ -38,7 +38,7 @@ func (c *NewsController) Get() mvc.View {
 		Data: iris.Map{
 			"Title":    "内容列表",
 			"list":     list,
-			"PageHtml": commons.GetPageHtml(totalPages, page, total, c.Ctx.Path()),
+			"PageHtml": common.GetPageHtml(totalPages, page, total, c.Ctx.Path()),
 		},
 	}
 }
@@ -61,14 +61,14 @@ func (c *NewsController) PostAddNews() {
 	if err := c.News.NewsAdd(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/news")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
 func (c *NewsController) GetUpdateNewsBy(id uint) mvc.View {
 	NewsInfo, err := c.News.NewsInfo(id)
 	if err != nil {
-		return commons.MvcError(err.Error(), c.Ctx)
+		return common.MvcError(err.Error(), c.Ctx)
 	}
 	Category := model.Category{}
 	list := Category.List()
@@ -96,7 +96,7 @@ func (c *NewsController) PostUpdateNews() {
 	if err := c.News.NewsUpdate(c.Ctx.FormValues()); err == nil {
 		c.Ctx.Redirect("/news")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -104,6 +104,6 @@ func (c *NewsController) GetDelNewsBy(id uint) {
 	if err := c.News.NewsDel(id); err == nil {
 		c.Ctx.Redirect("/news")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }

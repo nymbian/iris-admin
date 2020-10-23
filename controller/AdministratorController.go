@@ -2,9 +2,9 @@ package controllers
 
 import (
 	"html"
-	commons "iris-admin/common"
-	"iris-admin/libs"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/libs"
+	"github.com/nymbian/iris-admin/model"
 	"strconv"
 	"strings"
 
@@ -30,7 +30,7 @@ func (c *AdministratorController) Get() mvc.View {
 		Data: iris.Map{
 			"Title":    "管理员列表",
 			"list":     list,
-			"PageHtml": commons.GetPageHtml(totalPages, page, total, c.Ctx.Path()),
+			"PageHtml": common.GetPageHtml(totalPages, page, total, c.Ctx.Path()),
 		},
 	}
 }
@@ -38,7 +38,7 @@ func (c *AdministratorController) Get() mvc.View {
 func (c *AdministratorController) GetUpdateAdminBy(id uint) mvc.View {
 	adminInfo, err := admin_model.AdminInfo(id)
 	if err != nil {
-		return commons.MvcError(err.Error(), c.Ctx)
+		return common.MvcError(err.Error(), c.Ctx)
 	}
 
 	if adminInfo.Avatar == "" {
@@ -61,7 +61,7 @@ func (c *AdministratorController) PostUpdateAdmin() {
 	int_admin_id, _ := strconv.Atoi(admin_id)
 	err, filePath := libs.UploadFile("avatar", c.Ctx)
 	if err == false {
-		//commons.DefaultErrorShow(filePath, c.Ctx)
+		//common.DefaultErrorShow(filePath, c.Ctx)
 		//return
 		filePath = postValues["avatar_old"][0]
 	}
@@ -70,7 +70,7 @@ func (c *AdministratorController) PostUpdateAdmin() {
 	if err := admin_model.AdminUpdate(postValues, uint(int_admin_id), filePath); err == nil {
 		c.Ctx.Redirect("/administrator/update/admin/" + admin_id)
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -86,21 +86,21 @@ func (c *AdministratorController) GetAddAdmin() mvc.View {
 func (c *AdministratorController) PostAddAdmin() {
 	err, filePath := libs.UploadFile("avatar", c.Ctx)
 	if err == false {
-		commons.DefaultErrorShow(filePath, c.Ctx)
+		common.DefaultErrorShow(filePath, c.Ctx)
 		return
 	}
 
 	if err := admin_model.AddUpdate(c.Ctx.FormValues(), filePath); err == nil {
 		c.Ctx.Redirect("/administrator")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
 func (c *AdministratorController) GetUpdatePasswordBy(id uint) mvc.View {
 	adminInfo, err := admin_model.AdminInfo(id)
 	if err != nil {
-		return commons.MvcError(err.Error(), c.Ctx)
+		return common.MvcError(err.Error(), c.Ctx)
 	}
 	return mvc.View{
 		Name: "administrator/password.html",
@@ -120,7 +120,7 @@ func (c *AdministratorController) PostUpdatePassword() {
 	if err := admin_model.AdminPasswodUpdate(uint(int_admin_id), password, Repassword); err == nil {
 		c.Ctx.Redirect("/administrator")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }
 
@@ -128,6 +128,6 @@ func (c *AdministratorController) GetDelAdminBy(id uint) {
 	if err := admin_model.AdminDel(id); err == nil {
 		c.Ctx.Redirect("/administrator")
 	} else {
-		commons.DefaultErrorShow(err.Error(), c.Ctx)
+		common.DefaultErrorShow(err.Error(), c.Ctx)
 	}
 }

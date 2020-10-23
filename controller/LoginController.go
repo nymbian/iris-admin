@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"html"
-	"iris-admin/common"
-	"iris-admin/model"
+	"github.com/nymbian/iris-admin/common"
+	"github.com/nymbian/iris-admin/model"
 	"strings"
 	"sync"
 
@@ -29,7 +29,7 @@ func (c *LoginController) Get() {
 	}
 	log.Println(jumpUrl)
 
-	if auth := commons.SessManager.Start(c.Ctx).Get("admin_user"); auth != nil {
+	if auth := common.SessManager.Start(c.Ctx).Get("admin_user"); auth != nil {
 		c.Ctx.Redirect(jumpUrl)
 	} else {
 		c.Ctx.Redirect("/login/show?url="+url)

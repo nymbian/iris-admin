@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.08 (64 bit)
 MySQL - 8.0.11 : Database - iris-admin
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -54,7 +55,7 @@ CREATE TABLE `category` (
   KEY `idx_user_deleted_at` (`deleted_at`),
   KEY `parent_id` (`parent_id`),
   KEY `sort` (`sort`)
-) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='分类表';
 
 /*Data for the table `category` */
 
@@ -79,7 +80,7 @@ CREATE TABLE `menu` (
   KEY `idx_user_deleted_at` (`deleted_at`),
   KEY `parent_id` (`parent_id`),
   KEY `sort` (`sort`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `menu` */
 
@@ -104,7 +105,7 @@ CREATE TABLE `news` (
   KEY `idx_user_deleted_at` (`deleted_at`),
   KEY `sort` (`sort`),
   KEY `category_id` (`category_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='内容表';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='内容表';
 
 /*Data for the table `news` */
 
